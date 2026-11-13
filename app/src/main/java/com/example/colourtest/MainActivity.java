@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -37,10 +38,17 @@ public class MainActivity extends AppCompatActivity {
         nextButton = findViewById(R.id.button);
         currentPhoto = findViewById(R.id.imageView2);
         layout = findViewById(R.id.main);
+
+
         photos.add(R.drawable.potato);
         photos.add(R.drawable.christmas);
         photos.add(R.drawable.migration);
         photos.add(R.drawable.waterfall);
+
+        if(savedInstanceState != null){
+            photoId = savedInstanceState.getInt("PHOTO", 0);
+        }
+
         currentPhoto.setImageResource(photos.get(photoId));
         yellowButton.setOnClickListener(view -> {
             layout.setBackgroundColor(Color.parseColor("#FBFF00"));
@@ -59,5 +67,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("PHOTO", photoId);
     }
 }
